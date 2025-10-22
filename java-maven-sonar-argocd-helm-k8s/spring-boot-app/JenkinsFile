@@ -56,9 +56,9 @@ pipeline {
                     git config user.email "lavanya@gmail.com"
                     git config user.name "lavanya"
                     # Checkout main branch explicitly
-                    git fetch origin main
-                    git checkout main
-                    git reset --hard origin/main
+                    git fetch origin master
+                    git checkout master
+                    git reset --hard origin/master
 
                     BUILD_NUMBER=${BUILD_NUMBER}
                     sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
@@ -67,7 +67,7 @@ pipeline {
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}" || echo "No changes to commit"
 
                     # Use --force-with-lease to avoid non-fast-forward errors
-                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} main --force-with-lease
+                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} master --force-with-lease
                 '''
             }
         }
